@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="col-xl-8 offset-xl-2 col-md-12 col-sm-12">
+        {{ cause }}
+    {% for vote in vfcs %}
+        {{ vote.user }}
+        {% if not forloop.last %}
+            ,
+        {% endif %}
+    {% endfor %}
+
+    </div>
+
+{% endblock %}

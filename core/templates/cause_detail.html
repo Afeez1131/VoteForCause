@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row g-5">
+        <div class="col-md-8">
+{#            {% include "reading_time.html" %}#}
+            {% if cause.author == request.user %}
+                <a href="{% url 'update_cause' cause.slug %}">+ Edit</a>
+                <a href="{% url 'delete_cause' cause.slug %}">+ Delete</a>
+            {% endif %}
+            <h1>{{ cause.title }}</h1>
+        <p class="container blog-post-meta mb-0"> Posted {{ cause.created }} by <a href=
+                                                                                  "{% url 'profile' %}">
+            {{ cause.author }}</a> | <i class="fas fa-clock"></i> {{ cause.reading_time }} min
+            read </p>
+        <p class=" container tags">
+              Tags:
+              {% for tag in cause.tags.all %}
+                <a class="badge badge-primary" href="{% url 'tag_view' tag.slug %}">{{ tag }}</a>
+                {#   {% if not forloop.last %}, {% endif %}#}
+              {% endfor %}
+        </p>
+            <hr>
+
+            <p>{{ cause.body|safe }}</p>
+        </div>
+        <div class="col-md-4">
+
+            <div class="position-sticky" style="top: 2rem;">
+            <div class="p-4 mb-3 bg-light">
+                <h4 class="fst-italic">Share:</h4>
+                <a class='btn btn-sm btn-secondary' href="//twitter
+                .com/intent/tweet?text=A+New+Page&url
+                ={{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ request.path }}" target="_blank">
+                    <i class="fa-brands fa-twitter"></i>
+                </a>
+                <a class='btn btn-sm btn-secondary' href="//www.facebook.com/sharer/sharer
+                .php?u={{ request.scheme }}:/
+                /{{ request.META.HTTP_HOST }}{{ request.path }}" target="_blank">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a class='btn btn-sm btn-secondary' href="//www.linkedin.com/cws/share?url
+                ={{ request.scheme }}:/
+                /{{ request.META.HTTP_HOST }}{{ request.path }}" target="_blank">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+                <div class="p-4 mb-3 bg-light">
+                    <h4 class="fst-italic">Profile</h4>
+                    <hr>
+                    <i class="fa-solid fa-user fa-2x fa-pull-left fa-border" aria-hidden="true"></i>
+                    {#                <i class="fa-solid fa-user fa-lg"></i>#}
+                    <p class="mb-0">Created by: {{ cause.author }}</p>
+                    <p class="mb-0">{{ cause.sign_count }} total Signatures.</p>
+                {% with cause.voteforcause_set.all as cause_vote_list %}
+                    {% if not cause.sign_count == 0 %}
+                        <small class="mb-0">{{ cause_vote_list.last.user | upper }} added signature:
+                           {{ cause_vote_list.last.time_diff}}
+                       </small>
+                    {% endif %}
+
+                {% endwith %}
+
+
+                    <hr>
+                {% if not has_sign %}
+                    <a class="mb-2 btn btn-info btn-block" href=
+                            "{% url 'add_sign' cause.slug %}">Add your
+                        signature</a>
+                {% endif %}
+                    <span>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: {{ cause.sign_count }}%;"
+                     aria-valuenow="{{ cause.sign_count }}" aria-valuemin="0"
+                     aria-valuemax="100">{{ cause.sign_count }}% signatures </div>
+              </div>
+      </span>
+                </div>
+
+
+            {#Recent causes#}
+            <div class="mb-3">
+                <ul class="list-group">
+                    <l1 class="list-group-item active header fst-italic mt-0 mb-0">Recent
+                        Causes
+                    </l1>
+                    {% for cause_obj in causes %}
+                        <a href="{{ cause_obj.get_absolute_url }}"
+                           class="list-group-item list-group-item-action p-2">
+                            {{ cause_obj.title }}</a></li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

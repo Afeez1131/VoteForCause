@@ -1,0 +1,53 @@
+/* ---------------------------------------------------
+   SummerNote
+----------------------------------------------------- */
+
+.note-editable {
+    font-family: 'Poppins' !important;
+    font-size: 15px !important;
+    text-align: left !important;
+
+    height: 350px !important;
+
+}
+.blog-post-title {
+  margin-bottom: .25rem;
+  font-size: 2.0rem;
+}
+
+.blog-post-meta {
+  margin-bottom: 1.25rem;
+  color: #727272;
+      font-size:13px;
+
+}
+.nav-item .btn:hover {
+    text-decoration: none;
+    background-color: transparent !important;
+}
+/*
+ * Footer
+ */
+.blog-footer {
+    margin-top:30px;
+      padding: 1.0rem 0;
+      color: #727272;
+      text-align: center;
+      background-color: #f9f9f9;
+      border-top: .05rem solid #e5e5e5;
+
+}
+.blog-footer p:last-child {
+    margin-bottom: 0;
+
+}
+
+.row {
+    margin-bottom: 30px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+}
+
+

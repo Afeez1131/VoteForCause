@@ -14,7 +14,7 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.8 virtualenv at C:\Users\dell\.virtualenvs\DFP-GczpVj44" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Pipenv (VoteForCause)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">
