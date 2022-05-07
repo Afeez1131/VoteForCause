@@ -5,6 +5,9 @@ from . import views
 urlpatterns = [
     # path('', views.home, name='home'),
     path("", views.home, name="home"),
+    path("search/", views.search_for_cause, name='search'),
+    path("browse/", views.search_for_cause, name='search'),
+    path('cause/user/<username>/', views.user_cause, name='user_cause'),
     path("tag/<tag_slug>/", views.tag_view, name="tag_view"),
     path("cause/create/", views.create_cause, name="create_cause"),
     path("cause/<slug>/", views.cause_detail, name="cause_detail"),

@@ -6,6 +6,7 @@ from django.db.models import Q
 from .decorators import user_is_author, profile_is_edited
 from django.contrib import messages
 from taggit.models import Tag
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def home(request):
@@ -13,21 +14,39 @@ def home(request):
     The home view, it has the list of all causes
     '''
     causes = Causes.published.all()
+
+    paginator = Paginator(causes, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+
+    return render(request, "causes_list.html", {"causes": causes,
+                                                'page_obj': page_obj,})
+
+
+def search_for_cause(request):
+    '''
+    The view for searching for cause
+    '''
     query = request.GET.get("query")
-    #getting the query from the search form in the template
-    # tags = causes.
     if query:
-        try:
-            queryset = Causes.objects.filter(
-                Q(title__icontains=query) | Q(body__icontains=query)
-            )
-        except Exception as e:
-            print(e)
-        else:
-            causes = queryset
-    #     return render(request, "causes_list.html", {"causes": causes})
-    # else:
-    return render(request, "causes_list.html", {"causes": causes})
+        causes = Causes.published.filter(
+            Q(title__icontains=query) | Q(body__icontains=query)
+        )
+        return render(request, "search_page.html", {'causes': causes,
+                                                    'query': query})
+    return render(request, "search_page.html", {})
+
+
+def user_cause(request, username):
+    '''
+    the view to get all cause for a user passed as a url argument
+    '''
+    # user = username
+    causes = Causes.published.filter(author__username=username)
+
+    return render(request, 'user_cause.html', {'causes': causes,
+                                               'user': username, })
 
 
 def tag_view(request, tag_slug):
@@ -38,6 +57,7 @@ def tag_view(request, tag_slug):
     tag = get_object_or_404(Tag, slug=tag_slug)
     causes = causes.filter(tags__in=[tag])
     return render(request, "causes_list.html", {"causes": causes})
+
 
 @login_required
 @profile_is_edited
@@ -66,7 +86,7 @@ def cause_detail(request, slug):
     """
     the detail view of each cause
     """
-    cause = get_object_or_404(Causes, slug=slug)
+    cause = get_object_or_404(Causes, slug=slug, active=True)
     user = request.user
     if not request.user.is_authenticated:
         has_sign = None
@@ -96,7 +116,7 @@ def cause_update(request, slug):
     '''
     User should be authenticated, and only the author of a cause can edit the cause
     '''
-    cause = get_object_or_404(Causes, slug=slug)
+    cause = get_object_or_404(Causes, slug=slug, active=True)
     if request.method == "POST":
         form = CauseUpdateForm(request.POST, instance=cause)
         if form.is_valid():
@@ -122,7 +142,7 @@ def cause_delete(request, slug):
     cause.
     Also, the cause is not deleted, but unpublished.
     '''
-    cause = get_object_or_404(Causes, slug=slug)
+    cause = get_object_or_404(Causes, slug=slug, active=True)
     cause.active = False
     cause.save()
     return redirect("home")
@@ -133,7 +153,7 @@ def cause_signed_userlist(request, slug):
     '''
     The view that return the list of all users that signed for a cause.
     '''
-    cause = get_object_or_404(Causes, slug=slug)
+    cause = get_object_or_404(Causes, slug=slug, active=True)
     vfcs = VoteForCause.objects.filter(cause=cause)
 
     return render(request, 'cause_signed_list.html', {'cause': cause,
@@ -146,7 +166,7 @@ def add_sign_cause(request, slug):
     Adding signature to a cause, user should be authenticated, and cannot sign more than one.
     '''
     user = request.user
-    cause = get_object_or_404(Causes, slug=slug)
+    cause = get_object_or_404(Causes, slug=slug, active=True)
 
     vote_for_cause = VoteForCause.objects.filter(Q(cause=cause) & Q(user=user))
     if vote_for_cause.exists():

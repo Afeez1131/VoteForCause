@@ -47,8 +47,6 @@ def ProfileView(request):
             user_form.save()
             profile_form.save()
             messages.warning(request, 'You can now start creating Cause!')
-
-
         else:
             messages.warning(request, "Error filling the form")
         return redirect("profile")

@@ -26,25 +26,25 @@
 <body class="d-flex flex-column min-vh-100">
 {% include 'navbar.html' %}
 
-<div class="container pt-5">
-    {% if request.path == '/' %}
-        <div class="col-xl-8 offset-xl-2 col-lg-8 offset-lg-2">
-            {% include 'header.html' %}
-        </div>
-    {% endif %}
-
+{% if request.path == '/' %}
+    {% include 'header.html' %}
+{% endif %}
     {% if messages %}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+            <div class="text-center mt-0 alert alert-danger alert-dismissible fade show radius-0"
+                 role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
     {% endif %}
-    {% block content %}
-    {% endblock content %}
+<div class="container mt-5 pt-3">
+
+
+{% block content %}
+{% endblock content %}
 </div>
 {% include 'footer.html' %}
 

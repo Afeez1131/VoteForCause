@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="col-xl-8 offset-xl-2 col-lg-8 offset-lg-2">
+<h1 class="display-5">Causes created by "{{ user }}"</h1>
+{% if causes %}
+
+        {% for cause in causes %}
+            <div class="card  mb-4">
+                <div class="card-body">
+                    <h2 class="blog-post-title">
+                        <a href="{{ cause.get_absolute_url }}">{{ cause.title }}</a>
+                    </h2>
+                    <p class="blog-post-meta">{{ cause.created }} by
+                        <strong>{{ cause.author }}</strong></p>
+                    <p class="tags">
+                        Tags:
+                        {% for tag in cause.tags.all %}
+                            <a class="badge badge-primary"
+                               href="{% url 'tag_view' tag.slug %}">{{ tag }}</a>
+                        {% endfor %}
+                    </p>
+                    <p class="card-text">{{ cause.body | truncatewords:30 | safe }}</p>
+
+                </div>
+            </div>
+        {% endfor %}
+        {% else %}
+        No cause by user {{ user }}
+    {% endif %}
+    </div>
+
+{% endblock %}
