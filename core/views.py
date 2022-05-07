@@ -93,7 +93,7 @@ def cause_detail(request, slug):
     else:
         has_sign = VoteForCause.objects.filter(cause=cause, user=user).exists()
 
-    causes = Causes.published.all().order_by("-created")[:4]
+    causes = Causes.published.all().order_by("-created")[:3]
     '''
     i wrote a custom model manager published, which return the list of only published causes, 
     deleted (unpublished ) causes will be excluded.

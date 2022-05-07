@@ -28,14 +28,15 @@
             <div class="row container alert alert-warning">
                 <div class="col-md-8">
                     <div class="card-title m-0">
-                        Start a petition of your own
+                        Start a Cause of your own
                     </div>
                     <div class="card-body p-0">
-                        This petition starter stood up and took action. Will you do the same?
+                        This cause starter stood up and took action. Will you do the same?
                     </div>
                 </div>
                 <div class="col-md-4 mt-3">
-                    <button class="btn btn-lg btn-primary">Start a Cause</button>
+                    <a href="{% url 'create_cause' %}" class="btn btn-md btn-warning ">Start
+                        a Cause</a>
                 </div>
             </div>
             </div>
@@ -99,7 +100,7 @@
                 {#Recent causes#}
                 <div class="mb-3">
                     <ul class="list-group">
-                        <l1 class="list-group-item active header fst-italic mt-0 mb-0">Recent
+                        <l1 class="list-group-item active">Recent
                             Causes
                         </l1>
                         {% for cause_obj in causes %}

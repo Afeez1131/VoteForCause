@@ -23,7 +23,7 @@
                         <li class="nav-item {% if request.path == cause_create %} active {% endif %}">
                             <a class="nav-link" href="{% url 'create_cause' %}">Create</a>
                         </li>
-                        <li class="nav-item {% if request.path == cause_create %} active {% endif %}">
+                        <li class="nav-item {% if request.path == profile %} active {% endif %}">
                             <a class="nav-link" href="{% url 'profile' %}">Profile</a>
                         </li>
                         <li class="nav-item {% if request.path == user_cause %} active {% endif %}">
@@ -35,9 +35,12 @@
                             <a class="nav-link "
                                href="{% url 'account_logout' %}">Logout</a>
                         </li>
+                    {% if request.path == '/' %}
                         <li class="nav-item {% if request.path == search %}active{% endif %}">
                             <a class="nav-link" href="{% url 'search' %}"><i class="fa fa-search"></i></a>
                         </li>
+                    {% endif %}
+
                     </ul>
 
                 {% else %}
@@ -50,9 +53,11 @@
                             <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
                         </li></ul>
                     <ul class="navbar-nav ml">
-                        <li class="nav-item {% if request.path == search %}active{% endif %}">
-                            <a class="nav-link" href="{% url 'search' %}"><i class="fa fa-search"></i></a>
-                        </li>
+                        {% if request.path == '/' %}
+                            <li class="nav-item {% if request.path == search %}active{% endif %}">
+                                <a class="nav-link" href="{% url 'search' %}"><i class="fa fa-search"></i></a>
+                            </li>
+                    {% endif %}
                     </ul>
 
                 {% endif %}

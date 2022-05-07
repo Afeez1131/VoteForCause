@@ -4,11 +4,10 @@
 
 {% block extra_head %}
   {{ form.media }}
-
 {% endblock %}
 
 {% block content %}
-    <div class="col-xl-8 offset-xl-2 col-md-12 col-sm-12">
+    <div class="col-xl-8 offset-xl-2 col-md-12 col-sm-12 mb-5">
     {% if form.errors %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           {% for key, error in form.errors.items %}
