@@ -16,12 +16,12 @@
             </div>
         </form>
 
+        {% if query %}
+            {% if causes %}
 
-        <h1 class="display-5">Search Results for "{{ query }}"</h1>
-    {% if causes %}
-
-        {% for cause in causes %}
-            <div class="card  mb-4">
+            <h1 class="display-5">Search Results for "{{ query }}"</h1>
+            {% for cause in causes %}
+                <div class="card  mb-4">
                 <div class="card-body">
                     <h2 class="blog-post-title">
                         <a href="{{ cause.get_absolute_url }}">{{ cause.title }}</a>
@@ -36,15 +36,13 @@
                         {% endfor %}
                     </p>
                     <p class="card-text">{{ cause.body | truncatewords:30 | safe }}</p>
-
-
-                </div>
-            </div>
-        {% endfor %}
+                </div></div>
+            {% endfor %}
         {% else %}
-        No Result found for {{ query }}
+                <h1 class="display-6">No Result found for "{{ query }}"</h1>
         {% endif %}
+                {% endif %}
 
-    </div>
+        </div>
 
 {% endblock %}
