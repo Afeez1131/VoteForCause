@@ -24,3 +24,6 @@ urlpatterns = [
     path('', include('core.urls')),
     path('summernote/', include('django_summernote.urls')),
 ]
+
+handler404 = "core.views.error_404"
+# handler500 = "core.views.error_500"

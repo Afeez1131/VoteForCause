@@ -9,6 +9,14 @@ from .decorators import user_is_author, profile_is_edited
 from .forms import CauseCreateForm, CauseUpdateForm
 from .models import Causes, VoteForCause
 
+def error_404(request, exception):
+    data = {}
+    return render(request, "404.html", data)
+
+
+def handler500(request, *args, **argv):
+    return render(request, '500.html', status=500)
+
 
 def home(request):
     """
