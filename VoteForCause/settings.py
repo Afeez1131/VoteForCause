@@ -31,9 +31,9 @@ SECRET_KEY = env('SECRET_KEY')
 # python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", '127.0.0.1', 'vote-cause.herokuapp.com']
 
 # Application definition
 
@@ -198,7 +198,7 @@ SUMMERNOTE_CONFIG = {
 # production settings
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = "DENY"
-# SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 3600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True  # new
