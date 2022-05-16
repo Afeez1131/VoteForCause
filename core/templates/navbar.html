@@ -26,11 +26,14 @@
                         <li class="nav-item {% if request.path == profile %} active {% endif %}">
                             <a class="nav-link" href="{% url 'profile' %}">Profile</a>
                         </li>
-                        <li class="nav-item {% if request.path == user_cause %} active {% endif %}">
-                            <a class="nav-link" href="{% url 'user_cause' request.user %}">My Cause</a>
-                        </li>
+{#                        <li class="nav-item {% if request.path == user_cause %} active {% endif %}">#}
+{#                            <a class="nav-link" href="{% url 'user_cause' request.user %}">My Cause</a>#}
+{#                        </li>#}
                     </ul>
                     <ul class="navbar-nav mr">
+                    <li class="nav-item {% if request.path == user_cause %} active {% endif %}">
+                            <a class="nav-link" href="{% url 'user_cause' request.user %}">My Cause</a>
+                        </li>
                         <li class="nav-item {% if request.path == logout %} active {% endif %}">
                             <a class="nav-link "
                                href="{% url 'account_logout' %}">Logout</a>
