@@ -1,1 +1,1 @@
-web: gunicorn Referral.wsgi --log-file -
+web: gunicorn VoteForCause.wsgi --log-file -
